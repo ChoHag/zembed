@@ -1,0 +1,20 @@
+Create a gzipped file:
+
+  $ echo Super important message | gzip -c >message.gz
+
+Embed a gpg signature:
+
+  $ zsign gpg -abs <message.gz >signed.gz
+
+Ignore the signature:
+
+  $ zcat signed.gz
+  Super important message
+
+Verify the signature ('--' is replaced with the extractred signature
+file; '-' instructs gpg to read the message from stdin):
+
+  $ zverify gpg --verify -- - <signed.gz
+  gpg: Signature made Thu Apr 11 18:40:15 2019 UTC using RSA key ID 6C38160F
+  gpg: Good signature from "Nobody (nobody) <nobody@nowhere>"
+  Super important message
